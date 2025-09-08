@@ -1,96 +1,72 @@
-# HSWLP:Next – Cloudflare alapú újgenerációs SaaS rendszer
+# SynapseOS – Browser-Based AI Operating System
 
-Ez a repository a HSWLP platform `hswlp-next` nevű **új alaprendszere**, amelyre a különböző frontend rétegek (ún. **shellek**) épülnek. A rendszer teljesen Cloudflare-infrastruktúrán fut (Workers, D1, R2, KV), és készen áll SaaS alkalmazások hosztolására – külön back-end nélkül.
+**SynapseOS** is an experimental project within the **HSWLP ecosystem**,  
+designed as a **visual AI operating system** running directly in the browser.  
 
-Ez az alap biztosítja a következőket:
-
-- Bejelentkezés, regisztráció, email hitelesítés
-- Turnstile captcha
-- Cloudflare D1 adatbázis migrációkkal
-- R2 tárhely és KV session kezelés
-- Stripe integráció és emailküldés (Resend vagy Brevo)
-- Alkalmas Cloudflare Pages és Edge funkciók kiszolgálására
+The goal is to provide a **desktop-like interface** where multiple AI assistants  
+can be launched as independent windows, each specialized in different tasks  
+(e.g., writing, coding, design, research).  
 
 ---
 
-## Használat lokálisan
+## ✨ Vision
 
-1. Telepítés:
-
-   ```bash
-   pnpm install
-   ```
-
-2. Környezeti változók:
-
-   - Másold le a `.env.example` fájlt `.env` néven, majd töltsd ki.
-   - Ha használod: `.dev.vars.example` → `.dev.vars`
-
-3. Lokális migráció és indítás:
-
-   ```bash
-   pnpm db:migrate:dev
-   pnpm dev
-   ```
-
-4. Nyisd meg a böngészőben:
-   [http://localhost:3000](http://localhost:3000)
+SynapseOS aims to reimagine how users interact with AI:  
+- 🖥️ **Windowed Interface** – multiple AI agents running in parallel  
+- 🔌 **Modular Design** – add or remove assistants dynamically  
+- 🧠 **Task-Specific Agents** – writers, coders, planners, creative tools  
+- ☁️ **Cloudflare-Native Deployment** – lightweight and globally distributed  
+- 🎨 **User-Friendly UI** – drag-and-drop, resizable windows, persistent sessions  
 
 ---
 
-## Cloudflare deploy
+## 🛠️ Planned Architecture
 
-A rendszer automatikusan deployolható Cloudflare Workers-re:
-
-```bash
-pnpm run deploy
-```
-
-Ez lefuttatja az `opennext:build` és `opennextjs-cloudflare deploy` parancsokat, majd feltölti:
-
-- a Worker kódot
-- statikus asseteket (R2)
-- titkos környezeti változókat (`wrangler secret put`)
-- valamint a `wrangler.json` alapján hozzárendeli:
-  - D1 adatbázist
-  - KV namespace-eket
-  - R2 bucketet
-
-A `.env` fájl NEM kerül automatikusan feltöltésre – a titkos adatokat külön kell beállítani `wrangler secret put` paranccsal vagy a Cloudflare dashboardon.
+- **Frontend:** React (Next.js) + TailwindCSS  
+- **State Management:** WebSockets + KV for sessions  
+- **Backend:** Cloudflare Workers (API & agent orchestration)  
+- **Database:** D1 (user profiles, agent configs)  
+- **Storage:** R2 (persistent data, files)  
+- **AI Layer:** Local or API-based LLM integrations (Ollama, OpenAI, etc.)  
 
 ---
 
-## Fontos konfigurációs helyek
+## 📅 Current Status
 
-- Állandók: `src/constants.ts`
-- Email sablonok: `src/react-email/`
-- Globális CSS: `src/app/globals.css`
-- Meta adatok: `src/app/layout.tsx`
-- Wrangler config: `wrangler.json`
+🚧 **Concept / Early Prototype** – SynapseOS is currently in the design stage.  
+This repository serves as the foundation for experiments with UI and agent orchestration.  
 
 ---
 
-## Email sablonok előnézete
+## 📌 Roadmap
 
-```bash
-pnpm email:dev
-```
+- [ ] Core window manager (drag, resize, close)  
+- [ ] AI agent integration (chat-based)  
+- [ ] Multi-agent orchestration  
+- [ ] Persistent sessions with KV  
+- [ ] File & data storage (R2)  
+- [ ] Advanced desktop-like UI features  
 
-→ [http://localhost:3001](http://localhost:3001)
+---
+
+## 🌍 Part of the HSWLP Ecosystem
+
+SynapseOS is one of several experimental projects under the  
+**HSWLP (Hybrid Service Workflow Launch Platform)** initiative.  
+
+It complements other apps like:  
+- **AikaHUB** – AI + VR community hub  
+- **Yume** – music & image sharing platform  
+- **HSWLP:Talk** – video conferencing system  
+
+Together, these demonstrate the versatility of Cloudflare-native applications.  
 
 ---
 
-## A rendszer jövője
+## 📜 License
 
-A `hswlp-next` az alapja minden jövőbeli HSWLP shellnek, ideértve:
-
-- `HSWLP:Cloud` (statikus site deploy)
-- `HSWLP:NAS` (helyi Docker stack manager)
-- `HSWLP:Dev` (fejlesztői központ)
-- `HSWLP:Store` (sablon piactér)
-- `HSWLP:Academy` (oktatási modul)
-
-Egy közös rendszer, több célra.
-Tisztán, Cloudflare-alapon.
+Released under the **MIT License**.  
 
 ---
+
+**SynapseOS**
